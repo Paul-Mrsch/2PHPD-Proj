@@ -13,15 +13,18 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 ## Installation
 
 1. Clonez ce dépôt sur votre machine locale :
+
   git clone https://github.com/votre-utilisateur/Projet-Tournois-JV.git
 
-2. Accédez au répertoire du projet :
+3. Accédez au répertoire du projet :
+   
   cd 2PHPD
 
-3. Installez les dépendances Symfony via Composer :
+5. Installez les dépendances Symfony via Composer :
+   
   composer install
 
-5. Configurez votre base de données dans le fichier .env en renseignant les informations de connexion.
+7. Configurez votre base de données dans le fichier .env en renseignant les informations de connexion.
   Pour un serveur SQL prenez la ligne :
   DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8&charset=utf8mb4"
 
