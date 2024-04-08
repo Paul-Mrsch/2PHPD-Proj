@@ -66,7 +66,9 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
   Génération de rapports et statistiques
 
 # Contributions
-  Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet, veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
+  Les contributions sont les bienvenues ! 
+  
+  Si vous souhaitez contribuer à ce projet, veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
 
 # Auteurs
   Ce projet a été réalisé par :
