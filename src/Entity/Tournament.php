@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TournamentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,24 @@ class Tournament
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tournaments')]
+    private ?User $organizer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tournamentsWins')]
+    private ?User $winner = null;
+
+    #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'tournament')]
+    private Collection $registrations;
+
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'tournament')]
+    private Collection $games;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+        $this->games = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -140,5 +160,89 @@ class Tournament
         }
 
         return $this->status = "Indéfini";
+    }
+
+    public function getOrganizer(): ?User
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?User $organizer): static
+    {
+        $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    public function getWinner(): ?User
+    {
+        return $this->winner;
+    }
+
+    public function setWinner(?User $winner): static
+    {
+        $this->winner = $winner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getTournament() === $this) {
+                $registration->setTournament(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Game $game): static
+    {
+        if (!$this->games->contains($game)) {
+            $this->games->add($game);
+            $game->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): static
+    {
+        if ($this->games->removeElement($game)) {
+            // set the owning side to null (unless already changed)
+            if ($game->getTournament() === $this) {
+                $game->setTournament(null);
+            }
+        }
+
+        return $this;
     }
 }

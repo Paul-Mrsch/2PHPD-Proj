@@ -17,6 +17,15 @@ class Registration
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $registrationDate = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'registrations')]
+    private ?User $player = null;
+
+    #[ORM\ManyToOne(inversedBy: 'registrations')]
+    private ?Tournament $tournament = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +39,42 @@ class Registration
     public function setRegistrationDate(?\DateTimeInterface $registrationDate): static
     {
         $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?User
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?User $player): static
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getTournament(): ?Tournament
+    {
+        return $this->tournament;
+    }
+
+    public function setTournament(?Tournament $tournament): static
+    {
+        $this->tournament = $tournament;
 
         return $this;
     }
