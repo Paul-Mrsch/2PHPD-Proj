@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,11 +31,13 @@ class Game
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Tournament $tournament = null;
 
-    #[ORM\ManyToOne(inversedBy: 'gamePlayer1')]
-    private ?User $player1 = null;
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
+    private Collection $player;
 
-    #[ORM\ManyToOne(inversedBy: 'gamePlayer2')]
-    private ?User $player2 = null;
+    public function __construct()
+    {
+        $this->player = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -100,26 +104,26 @@ class Game
         return $this;
     }
 
-    public function getPlayer1(): ?User
+    /**
+     * @return Collection<int, User>
+     */
+    public function getGamePlayer(): Collection
     {
-        return $this->player1;
+        return $this->player;
     }
 
-    public function setPlayer1(?User $player1): static
+    public function addGamePlayer(User $player): static
     {
-        $this->player1 = $player1;
+        if (!$this->player->contains($player)) {
+            $this->player->add($player);
+        }
 
         return $this;
     }
 
-    public function getPlayer2(): ?User
+    public function removeGamePlayer(User $player): static
     {
-        return $this->player2;
-    }
-
-    public function setPlayer2(?User $player2): static
-    {
-        $this->player2 = $player2;
+        $this->player->removeElement($player);
 
         return $this;
     }

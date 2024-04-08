@@ -21,10 +21,10 @@ class Registration
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'registrations')]
-    private ?User $player = null;
+    private ?Tournament $tournament = null;
 
     #[ORM\ManyToOne(inversedBy: 'registrations')]
-    private ?Tournament $tournament = null;
+    private ?User $player = null;
 
     public function getId(): ?int
     {
@@ -55,18 +55,6 @@ class Registration
         return $this;
     }
 
-    public function getPlayer(): ?User
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?User $player): static
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
     public function getTournament(): ?Tournament
     {
         return $this->tournament;
@@ -75,6 +63,18 @@ class Registration
     public function setTournament(?Tournament $tournament): static
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?User
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?User $player): static
+    {
+        $this->player = $player;
 
         return $this;
     }

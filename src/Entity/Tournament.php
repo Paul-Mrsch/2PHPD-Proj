@@ -40,17 +40,17 @@ class Tournament
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tournaments')]
-    private ?User $organizer = null;
-
-    #[ORM\ManyToOne(inversedBy: 'tournamentsWins')]
-    private ?User $winner = null;
-
     #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'tournament')]
     private Collection $registrations;
 
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'tournament')]
     private Collection $games;
+
+    #[ORM\ManyToOne(inversedBy: 'tournaments')]
+    private ?User $organizer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tournamentsWins')]
+    private ?User $winner = null;
 
     public function __construct()
     {
@@ -162,30 +162,6 @@ class Tournament
         return $this->status = "Indéfini";
     }
 
-    public function getOrganizer(): ?User
-    {
-        return $this->organizer;
-    }
-
-    public function setOrganizer(?User $organizer): static
-    {
-        $this->organizer = $organizer;
-
-        return $this;
-    }
-
-    public function getWinner(): ?User
-    {
-        return $this->winner;
-    }
-
-    public function setWinner(?User $winner): static
-    {
-        $this->winner = $winner;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Registration>
      */
@@ -242,6 +218,30 @@ class Tournament
                 $game->setTournament(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrganizer(): ?User
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?User $organizer): static
+    {
+        $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    public function getWinner(): ?User
+    {
+        return $this->winner;
+    }
+
+    public function setWinner(?User $winner): static
+    {
+        $this->winner = $winner;
 
         return $this;
     }

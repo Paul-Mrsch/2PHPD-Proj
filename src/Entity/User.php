@@ -6,26 +6,37 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lasName = null;
+    private ?string $lastName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $emailAdress = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
@@ -39,35 +50,95 @@ class User
     #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'player')]
     private Collection $registrations;
 
-    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'player1')]
-    private Collection $gamePlayer1;
-
-    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'player2')]
-    private Collection $gamePlayer2;
+    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'player')]
+    private Collection $games;
 
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
         $this->tournamentsWins = new ArrayCollection();
         $this->registrations = new ArrayCollection();
-        $this->gamePlayer1 = new ArrayCollection();
-        $this->gamePlayer2 = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLasName(): ?string
+    public function getEmail(): ?string
     {
-        return $this->lasName;
+        return $this->email;
     }
 
-    public function setLasName(?string $lasName): static
+    public function setEmail(string $email): static
     {
-        $this->lasName = $lasName;
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): static
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -92,18 +163,6 @@ class User
     public function setUsername(?string $username): static
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    public function getEmailAdress(): ?string
-    {
-        return $this->emailAdress;
-    }
-
-    public function setEmailAdress(?string $emailAdress): static
-    {
-        $this->emailAdress = $emailAdress;
 
         return $this;
     }
@@ -213,58 +272,25 @@ class User
     /**
      * @return Collection<int, Game>
      */
-    public function getGamePlayer1(): Collection
+    public function getGames(): Collection
     {
-        return $this->gamePlayer1;
+        return $this->games;
     }
 
-    public function addGamePlayer1(Game $gamePlayer1): static
+    public function addGame(Game $game): static
     {
-        if (!$this->gamePlayer1->contains($gamePlayer1)) {
-            $this->gamePlayer1->add($gamePlayer1);
-            $gamePlayer1->setPlayer1($this);
+        if (!$this->games->contains($game)) {
+            $this->games->add($game);
+            $game->addGamePlayer($this);
         }
 
         return $this;
     }
 
-    public function removeGamePlayer1(Game $gamePlayer1): static
+    public function removeGame(Game $game): static
     {
-        if ($this->gamePlayer1->removeElement($gamePlayer1)) {
-            // set the owning side to null (unless already changed)
-            if ($gamePlayer1->getPlayer1() === $this) {
-                $gamePlayer1->setPlayer1(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Game>
-     */
-    public function getGamePlayer2(): Collection
-    {
-        return $this->gamePlayer2;
-    }
-
-    public function addGamePlayer2(Game $gamePlayer2): static
-    {
-        if (!$this->gamePlayer2->contains($gamePlayer2)) {
-            $this->gamePlayer2->add($gamePlayer2);
-            $gamePlayer2->setPlayer2($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGamePlayer2(Game $gamePlayer2): static
-    {
-        if ($this->gamePlayer2->removeElement($gamePlayer2)) {
-            // set the owning side to null (unless already changed)
-            if ($gamePlayer2->getPlayer2() === $this) {
-                $gamePlayer2->setPlayer2(null);
-            }
+        if ($this->games->removeElement($game)) {
+            $game->removeGamePlayer($this);
         }
 
         return $this;
