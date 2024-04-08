@@ -16,15 +16,15 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 
   git clone https://github.com/votre-utilisateur/Projet-Tournois-JV.git
 
-3. Accédez au répertoire du projet :
+#### 2. Accédez au répertoire du projet :
    
   cd 2PHPD
 
-5. Installez les dépendances Symfony via Composer :
+#### 3. Installez les dépendances Symfony via Composer :
    
   composer install
 
-6. Configurez votre base de données dans le fichier .env en renseignant les informations de connexion.
+#### 4. Configurez votre base de données dans le fichier .env en renseignant les informations de connexion.
    
   Pour un serveur SQL prenez la ligne :
   DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8&charset=utf8mb4"
@@ -35,12 +35,12 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
   - Le second "app" : le nom de la table de la base de données, ici : 2phpd
   - Le chiffre "8" après la version : indiquez la version de votre serveur 
 
-7. Créez la base de données et exécutez les migrations :
+#### 5. Créez la base de données et exécutez les migrations :
    
   php bin/console doctrine:database:create
   php bin/console doctrine:migrations:migrate
 
-8. Chargez des données de test (fixtures) :
+#### 6. Chargez des données de test (fixtures) :
    
    php bin/console doctrine:fixtures:load
 
