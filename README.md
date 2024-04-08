@@ -49,14 +49,20 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 
 # Utilisation
   Pour lancer l'application sur le port 8000, exécutez la commande suivante depuis la racine du projet :
+  
   php -S 127.0.0.8000 -t public
+  
   Ensuite, accédez à l'URL fournie par Symfony pour visualiser l'application dans votre navigateur.
 
 # Fonctionnalités
   Création, édition et suppression de tournois
+  
   Inscription des joueurs à des tournois
+  
   Gestion des matchs et résultats
+  
   Classement des joueurs et des équipes
+  
   Génération de rapports et statistiques
 
 # Contributions
