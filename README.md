@@ -1,6 +1,6 @@
 ## To do :
 
-Create a workflow to automate the actions at the very first pull "composer install"
+Create a workflow to automate the actions at the very first pull "composer install" and opening .env
 
 
 
