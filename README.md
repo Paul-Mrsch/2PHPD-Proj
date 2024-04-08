@@ -2,6 +2,10 @@
 
 Create a workflow to automate the actions at the very first pull "composer install" and opening .env
 
+USe fixture to add some data in database
+
+Start to make controllers for api
+
 
 
 
