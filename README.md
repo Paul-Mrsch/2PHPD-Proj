@@ -12,7 +12,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 
 ## Installation
 
-### 1. Clonez ce dépôt sur votre machine locale :
+#### 1. Clonez ce dépôt sur votre machine locale :
 
   git clone https://github.com/votre-utilisateur/Projet-Tournois-JV.git
 
