@@ -35,6 +35,9 @@ class Tournament
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $game = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +125,20 @@ class Tournament
         $this->game = $game;
 
         return $this;
+    }
+
+    public function getStatus(): string
+    {
+        $now = new \DateTime();
+
+        if ($this->startDate > $now && $this->endDate > $now) {
+            return $this->status = "En attente";
+        } elseif ($this->startDate <= $now && $this->endDate >= $now) {
+            return $this->status = "En cours";
+        } elseif ($this->endDate < $now) {
+            return $this->status = "Terminé";
+        }
+
+        return $this->status = "Indéfini";
     }
 }

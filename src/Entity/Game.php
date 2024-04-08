@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\OneMatchRepository;
+use App\Repository\GameRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: OneMatchRepository::class)]
-class OneMatch
+#[ORM\Entity(repositoryClass: GameRepository::class)]
+class Game
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,7 +15,7 @@ class OneMatch
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $matchDate = null;
+    private ?\DateTimeInterface $gameDate = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $scorePlayer1 = null;
@@ -28,14 +28,14 @@ class OneMatch
         return $this->id;
     }
 
-    public function getMatchDate(): ?\DateTimeInterface
+    public function getGameDate(): ?\DateTimeInterface
     {
-        return $this->matchDate;
+        return $this->gameDate;
     }
 
-    public function setMatchDate(?\DateTimeInterface $matchDate): static
+    public function setGameDate(?\DateTimeInterface $gameDate): static
     {
-        $this->matchDate = $matchDate;
+        $this->gameDate = $gameDate;
 
         return $this;
     }
