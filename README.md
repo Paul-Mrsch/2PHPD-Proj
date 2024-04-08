@@ -60,5 +60,5 @@ Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce proje
 Ce projet a été réalisé par :
 
 [Paul MARESCHI](https://github.com/Caalagan)
-[Aksel YOUNSI](lien vers le profil GitHub)
-[Kevin BUMBESCU](lien vers le profil GitHub)
+[Aksel YOUNSI](https://github.com/aaKSell)
+Kevin BUMBESCU
