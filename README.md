@@ -61,4 +61,4 @@ Ce projet a été réalisé par :
 
 [Paul MARESCHI](https://github.com/Caalagan)
 [Aksel YOUNSI](https://github.com/aaKSell)
-Kevin BUMBESCU
+[Kevin BUMBESCU](https://github.com/Reuss77)
