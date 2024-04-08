@@ -29,6 +29,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 ### 4. Configurez votre base de données dans le fichier .env en renseignant les informations de connexion.
    
   Pour un serveur SQL prenez la ligne :
+  
   DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8&charset=utf8mb4"
 
   A modifier :
@@ -40,6 +41,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 ### 5. Créez la base de données et exécutez les migrations :
    
   php bin/console doctrine:database:create
+  
   php bin/console doctrine:migrations:migrate
 
 ### 6. Chargez des données de test (fixtures) :
