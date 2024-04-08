@@ -36,7 +36,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
   php bin/console doctrine:database:create
   php bin/console doctrine:migrations:migrate
 
-6.Chargez des données de test (fixtures) :
+7. Chargez des données de test (fixtures) :
   php bin/console doctrine:fixtures:load
 
 
