@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Entity\Game;
+use App\Entity\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class ApiTournamentsGamesController extends AbstractController
 
         $games = $em->getRepository(Game::class)->findBy(['tournament' => $idTournament]);
 
-        $games = $serializer->serialize($games, 'json', ['groups' => 'tournament:read']);
+        $games = $serializer->serialize($games, 'json', ['groups' => 'games:read']);
 
         return $this->json($games);
     }
@@ -61,13 +62,16 @@ class ApiTournamentsGamesController extends AbstractController
     }
 
     #[Route('/api/tournaments/{idTournament}/games/{idGame}', name: 'api_tournaments_games_show', methods: ['GET'])]
-    public function show($idTournament, $idGame, EntityManagerInterface $em): JsonResponse
+    public function show($idTournament, $idGame, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
-        $game = $em->getRepository(Game::class)->find($idGame);
+        //Recherche d'un jeu donné (idGame) pour un tournoi donné (idTournament)
+        $game = $em->getRepository(Game::class)->findOneBy(['tournament' => $idTournament, 'id' => $idGame]);
 
         if (!$game) {
             return new JsonResponse(['error' => 'Game not found'], Response::HTTP_NOT_FOUND);
         }
+
+        $game = $serializer->serialize($game, 'json', ['groups' => 'games:read']);
 
         return $this->json($game);
     }
@@ -75,7 +79,8 @@ class ApiTournamentsGamesController extends AbstractController
     #[Route('/api/tournaments/{idTournament}/games/{idGame}', name: 'api_tournaments_games_edit', methods: ['PUT'])]
     public function modify(EntityManagerInterface $em, SerializerInterface $serializerinterface, Request $request, ValidatorInterface $validator, $idTournament, $idGame)
     {
-        $game = $em->getRepository(Game::class)->find($idGame);
+        //Recherche d'un jeu donné (idGame) pour un tournoi donné (idTournament)
+        $game = $em->getRepository(Game::class)->findOneBy(['tournament' => $idTournament, 'id' => $idGame]);
 
         if (!$game) {
             return new JsonResponse(['error' => 'Game not found'], Response::HTTP_NOT_FOUND);

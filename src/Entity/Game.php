@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -17,21 +18,27 @@ class Game
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['games:read'])]
     private ?\DateTimeInterface $gameDate = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['games:read'])]
     private ?int $scorePlayer1 = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['games:read'])]
     private ?int $scorePlayer2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['games:read'])]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'games')]
+    #[Groups(['games:read'])]
     private ?Tournament $tournament = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
+    #[Groups(['games:read'])]
     private Collection $player;
 
     public function __construct()
@@ -107,12 +114,12 @@ class Game
     /**
      * @return Collection<int, User>
      */
-    public function getGamePlayer(): Collection
+    public function getPlayer(): Collection
     {
         return $this->player;
     }
 
-    public function addGamePlayer(User $player): static
+    public function addPlayer(User $player): static
     {
         if (!$this->player->contains($player)) {
             $this->player->add($player);
@@ -121,7 +128,7 @@ class Game
         return $this;
     }
 
-    public function removeGamePlayer(User $player): static
+    public function removePlayer(User $player): static
     {
         $this->player->removeElement($player);
 
