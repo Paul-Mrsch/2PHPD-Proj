@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiTournamentsController extends AbstractController
 {
     #[Route('/api/tournaments', name: 'api_tournaments_index', methods: ['GET'])]
-    public function index(ObjectManager $em): JsonResponse
+    public function index(EntityManagerInterface $em): JsonResponse
     {
         $tournaments = $em->getRepository(Tournament::class)->findAll();
 
@@ -42,7 +42,7 @@ class ApiTournamentsController extends AbstractController
     }
 
     #[Route('/api/tournaments/{id}', name: 'api_tournaments_show', methods: ['GET'])]
-    public function show($id, ObjectManager $em): JsonResponse
+    public function show($id, EntityManagerInterface $em): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);
 
@@ -53,7 +53,7 @@ class ApiTournamentsController extends AbstractController
         return $this->json($tournament);
     }
 
-    #[Route('/api/tournaments/{id}', name: 'api_tournaments_modify', methods: ['PUT'])]
+    #[Route('/api/tournaments/{id}', name: 'api_tournaments_edit', methods: ['PUT'])]
     public function modify(EntityManagerInterface $em, SerializerInterface $serializerinterface, Request $request, ValidatorInterface $validator, $id)
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);
