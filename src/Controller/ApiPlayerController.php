@@ -28,7 +28,16 @@ class ApiPlayerController extends AbstractController
     #[Route('/register', name: 'api_players_create', methods: ['POST'])]
     public function create(EntityManagerInterface $em, SerializerInterface $serializerinterface, Request $request, ValidatorInterface $validator): JsonResponse
     {
+        // With hashing the password
+
         $player = $serializerinterface->deserialize($request->getContent(), User::class, 'json');
+
+        $player->setPassword(
+            password_hash(
+                $player->getPassword(),
+                PASSWORD_DEFAULT
+            )
+        );
 
         $errors = $validator->validate($player);
 
