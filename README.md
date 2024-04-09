@@ -4,7 +4,8 @@ Create a workflow to automate the actions at the very first pull "composer insta
 
 Use fixture to add some data in database
 
-Start to make controllers for api
+Api : registrations
+  the serializing of the index GET method is making a circular reference BUG 
 
 
 
