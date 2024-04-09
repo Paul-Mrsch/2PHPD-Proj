@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RegistrationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RegistrationRepository::class)]
 class Registration
@@ -15,15 +16,19 @@ class Registration
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?\DateTimeInterface $registrationDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'registrations')]
+    #[Groups(['tournament:read'])]
     private ?Tournament $tournament = null;
 
     #[ORM\ManyToOne(inversedBy: 'registrations')]
+    #[Groups(['tournament:read'])]
     private ?User $player = null;
 
     public function getId(): ?int
