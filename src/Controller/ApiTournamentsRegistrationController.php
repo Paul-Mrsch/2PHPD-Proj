@@ -21,6 +21,12 @@ class ApiTournamentsRegistrationController extends AbstractController
     public function index(EntityManagerInterface $em, $id, SerializerInterface $serializer): JsonResponse
     {
         //Recherche de tous les joueurs inscrits à un tournoi donné (id)
+        $tournament = $em->getRepository(Tournament::class)->find($id);
+
+        if (!$tournament) {
+            return new JsonResponse(['error' => 'Tournament not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $registrations = $em->getRepository(Registration::class)->findBy(['tournament' => $id]);
 
         $registrations = $serializer->serialize($registrations, 'json', ['groups' => 'tournament:read']);
@@ -53,5 +59,28 @@ class ApiTournamentsRegistrationController extends AbstractController
         $em->flush();
 
         return new JsonResponse(['message' => 'Registration created!'], Response::HTTP_CREATED);
+    }
+
+    #[Route('/api/tournaments/{id}/registrations/{registrationId}', name: 'api_tournaments_registrations_delete', methods: ['DELETE'])]
+    public function delete(EntityManagerInterface $em, $id, $registrationId): JsonResponse
+    {
+        //Suppression d'une inscription à un tournoi donné (id)
+        $tournament = $em->getRepository(Tournament::class)->find($id);
+
+        if (!$tournament) {
+            return new JsonResponse(['error' => 'Tournament not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Trouver l'inscription à supprimer qui appartient au tournoi donné
+        $registration = $em->getRepository(Registration::class)->findOneBy(['tournament' => $id, 'id' => $registrationId]);
+
+        if (!$registration) {
+            return new JsonResponse(['error' => 'Registration not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em->remove($registration);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Registration deleted!'], Response::HTTP_OK);
     }
 }
