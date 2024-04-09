@@ -67,6 +67,13 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
   
   Ensuite, accédez à l'URL fournie par Symfony pour visualiser l'application dans votre navigateur.
 
+### API
+  Récupérez les requêtes API postman (fichier Json) dans le dossier Postman Requests.
+
+  Ensuite, dans l'applicatioin Postman, importez le fichier dans l'onglet en haut à gauche "import".
+
+  Vous avez maintenant accès à toutes les requêtes de l'API.
+
 # Fonctionnalités
   Création, édition et suppression de tournois
   
