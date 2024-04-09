@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\TournamentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TournamentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TournamentRepository::class)]
 class Tournament
@@ -17,27 +18,35 @@ class Tournament
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $tournamentName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $location = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?int $maxParticipants = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $game = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['tournament:read'])]
     private ?string $status = null;
 
     #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'tournament')]

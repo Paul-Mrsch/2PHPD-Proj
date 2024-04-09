@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -18,39 +19,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $status = null;
 
     #[ORM\OneToMany(targetEntity: Tournament::class, mappedBy: 'organizer')]
+    #[Groups(['user:read'])]
     private Collection $tournaments;
 
     #[ORM\OneToMany(targetEntity: Tournament::class, mappedBy: 'winner')]
+    #[Groups(['user:read'])]
     private Collection $tournamentsWins;
 
     #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'player')]
+    #[Groups(['user:read'])]
     private Collection $registrations;
 
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'player')]
+    #[Groups(['user:read'])]
     private Collection $games;
 
     public function __construct()
@@ -281,7 +293,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->games->contains($game)) {
             $this->games->add($game);
-            $game->addGamePlayer($this);
+            $game->addPlayer($this);
         }
 
         return $this;
@@ -290,7 +302,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeGame(Game $game): static
     {
         if ($this->games->removeElement($game)) {
-            $game->removeGamePlayer($this);
+            $game->removePlayer($this);
         }
 
         return $this;

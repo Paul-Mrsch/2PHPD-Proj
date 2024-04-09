@@ -15,9 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiTournamentsController extends AbstractController
 {
     #[Route('/api/tournaments', name: 'api_tournaments_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $em): JsonResponse
+    public function index(EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $tournaments = $em->getRepository(Tournament::class)->findAll();
+
+        $tournaments = $serializer->serialize($tournaments, 'json', ['groups' => 'tournament:read']);
 
         return $this->json($tournaments);
     }
@@ -41,13 +43,16 @@ class ApiTournamentsController extends AbstractController
     }
 
     #[Route('/api/tournaments/{id}', name: 'api_tournaments_show', methods: ['GET'])]
-    public function show($id, EntityManagerInterface $em): JsonResponse
+    public function show($id, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);
 
         if (!$tournament) {
             return new JsonResponse(['error' => 'Tournament not found'], Response::HTTP_NOT_FOUND);
         }
+
+
+        $tournament = $serializer->serialize($tournament, 'json', ['groups' => 'tournament:read']);
 
         return $this->json($tournament);
     }

@@ -16,9 +16,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiPlayerController extends AbstractController
 {
     #[Route('/api/players', name: 'api_players_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $em): JsonResponse
+    public function index(EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $players = $em->getRepository(User::class)->findAll();
+
+        $players = $serializer->serialize($players, 'json', ['groups' => 'user:read']);
 
         return $this->json($players);
     }
@@ -42,13 +44,15 @@ class ApiPlayerController extends AbstractController
     }
 
     #[Route('/api/players/{id}', name: 'api_players_show', methods: ['GET'])]
-    public function show($id, EntityManagerInterface $em): JsonResponse
+    public function show($id, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $player = $em->getRepository(User::class)->find($id);
 
         if (!$player) {
             return new JsonResponse(['error' => 'Player not found'], Response::HTTP_NOT_FOUND);
         }
+
+        $player = $serializer->serialize($player, 'json', ['groups' => 'user:read']);
 
         return $this->json($player);
     }
