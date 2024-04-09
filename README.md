@@ -8,7 +8,6 @@ Start to make controllers for api
 
 
 
-
 # Gestionnaire de Tournois de Jeux Vidéo avec Symfony
 
 Ce projet a été réalisé dans le cadre d'un cours PHPD de SUPINFO sur la programmation web avec Symfony à l'école. 
@@ -57,7 +56,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 
 ### 6. Chargez des données de test (fixtures) :
    
-   php bin/console doctrine:fixtures:load
+  php bin/console doctrine:fixtures:load
 
 
 # Utilisation
