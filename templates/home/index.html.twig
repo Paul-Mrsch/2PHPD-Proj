@@ -25,10 +25,18 @@
 				<a href="{{ path('app_tournament_index') }}">ici</a>
 			</li>
 			{# {% if this.user %}
-										<li>Pour voir votre profile, cliquez sur
-											<a href="{{ path('app_profile', {'id' : user.id}) }}">ici</a>
-										</li>
-									{% endif %} #}
+																			<li>Pour voir votre profile, cliquez sur
+																				<a href="{{ path('app_profile', {'id' : user.id}) }}">ici</a>
+																			</li>
+																		{% endif %} #}
+
+			<li>Pour vous déconnecter cliquez
+				<a href="{{ path('app_logout') }}">ici</a>
+			</li>
+
+			<li>Pour vous connecter cliquez
+				<a href="{{ path('app_login') }}">ici</a>
+			</li>
 
 		</div>
 	{% endblock %}
