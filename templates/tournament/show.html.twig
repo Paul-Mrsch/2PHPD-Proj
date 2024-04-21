@@ -1,54 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournament{% endblock %}
+{% block title %}Tournament
+{% endblock %}
 
 {% block body %}
-    <h1>Tournament</h1>
+	<h1>Tournament</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tournament.id }}</td>
-            </tr>
-            <tr>
-                <th>TournamentName</th>
-                <td>{{ tournament.tournamentName }}</td>
-            </tr>
-            <tr>
-                <th>StartDate</th>
-                <td>{{ tournament.startDate ? tournament.startDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ tournament.endDate ? tournament.endDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ tournament.location }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ tournament.description }}</td>
-            </tr>
-            <tr>
-                <th>MaxParticipants</th>
-                <td>{{ tournament.maxParticipants }}</td>
-            </tr>
-            <tr>
-                <th>Game</th>
-                <td>{{ tournament.game }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ tournament.status }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tournament_index') }}">back to list</a>
-
-    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
-
-    {{ include('tournament/_delete_form.html.twig') }}
-{% endblock %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ tournament.id }}</td>
+			</tr>
+			<tr>
+				<th>TournamentName</th>
+				<td>{{ tournament.tournamentName }}</td>
+			</tr>
+			<tr>
+				<th>StartDate</th>
+				<td>{{ tournament.startDate ? tournament.startDate|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>EndDate</th>
+				<td>{{ tournament.endDate ? tournament.endDate|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Location</th>
+				<td>{{ tournament.location }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ tournament.description }}</td>
+			</tr>
+			<tr>
+				<th>MaxParticipants</th>
+				<td>{{ tournament.maxParticipants }}</td>
+			</tr>
+			<tr>
+				<th>Game</th>
+				<td>{{ tournament.game }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ tournament.status }}</td>
+			</tr>
+			<tr>
+				<th>Organizer</th>
+				<td>{{ tournament.organizer }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="{{ path('app_tournament_index') }}">back to list</a>
+	<a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+	<h2>Games</h2>
+	<ul>
+		{% for game in games %}
+			<li>Id de la game :
+				{{ game.id }}</li>
+			<ul>
+				<li>Date de la game :
+					{{ game.gameDate|date('Y-m-d') }}</li>
+				<li>Score du joueur 1 :
+					{{ game.scorePlayer1 }}</li>
+				<li>Score du joueur 2 :
+					{{ game.scorePlayer2 }}</li>
+				<li>Status de la game :
+					{{ game.status }}</li>
+				{% for player in game.player %}
+					<li>Player :
+						{{ player }}</li>
+				{% endfor %}
+				<a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
+				<a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+			</ul>
+		{% else %}
+			<li>Pas de game trouvée</li>
+		{% endfor %}
+		<a href="{{ path('app_game_new', {'id': tournament.id}) }}">Create new</a>
+	{% endblock %}

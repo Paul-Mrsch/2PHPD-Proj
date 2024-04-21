@@ -5,19 +5,24 @@
 
 {% block body %}
 	<h1>Register</h1>
-
-	{{ form_errors(registrationForm) }}
-
-	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.firstName) }}
-	{{ form_row(registrationForm.lastName) }}
-	{{ form_row(registrationForm.username) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-	{{ form_row(registrationForm.agreeTerms) }}
-
-	<button type="submit" class="btn">Register</button>
-	{{ form_end(registrationForm) }}
+	{# 
+					{{ form_errors(registrationForm) }}
+				
+					{{ form_start(registrationForm) }}
+					{{ form_row(registrationForm.firstName) }}
+					{{ form_row(registrationForm.lastName) }}
+					{{ form_row(registrationForm.username) }}
+					{{ form_row(registrationForm.email) }}
+					{{ form_row(registrationForm.plainPassword, {
+				            label: 'Password'
+				        }) }}
+					{{ form_row(registrationForm.agreeTerms) }}
+				
+					<button type="submit" class="btn">Register</button>
+					{{ form_end(registrationForm) }} #}
+	<div>
+		Pour des raisons de maintenance, l'inscription est désactivée pour le moment. Merci de votre compréhension.
+	</div>
+	<a href="{{ path('app_login') }}">login</a>
+	<a href="{{ path('home') }}">back to home</a>
 {% endblock %}

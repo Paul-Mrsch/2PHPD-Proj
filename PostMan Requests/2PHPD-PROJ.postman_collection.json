@@ -456,7 +456,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"Bob\",\r\n    \"username\": \"BobbyLeGoat\",\r\n    \"email\": \"{{idCreate}}@gmiel.com\",\r\n    \"password\": \"BobbyLeGoat\",\r\n    \"last_name\": \"DuPont\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"Bob\",\r\n    \"username\": \"BobbyLeGoat\",\r\n    \"email\": \"{{idCreate}}@gmiel.com\",\r\n    \"status\": \"active\",\r\n    \"password\": \"BobbyLeGoat\",\r\n    \"last_name\": \"DuPont\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

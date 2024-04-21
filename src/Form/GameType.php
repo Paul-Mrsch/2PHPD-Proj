@@ -2,31 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Tournament;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TournamentType extends AbstractType
+class GameType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tournamentName')
-            ->add('startDate')
-            ->add('endDate')
-            ->add('location')
-            ->add('description')
-            ->add('maxParticipants')
-            ->add('game')
-            ->add('organizer')
-            ->add('winner');
+            ->add('gameDate')
+            ->add('scorePlayer1')
+            ->add('scorePlayer2')
+            ->add('player')
+            ->add('player');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Tournament::class,
+            'data_class' => Game::class,
         ]);
     }
 }

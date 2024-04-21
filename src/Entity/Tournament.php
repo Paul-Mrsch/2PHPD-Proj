@@ -156,19 +156,16 @@ class Tournament
         return $this;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
-        $now = new \DateTime();
+        return $this->status;
+    }
 
-        if ($this->startDate > $now && $this->endDate > $now) {
-            return $this->status = "En attente";
-        } elseif ($this->startDate <= $now && $this->endDate >= $now) {
-            return $this->status = "En cours";
-        } elseif ($this->endDate < $now) {
-            return $this->status = "Terminé";
-        }
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
 
-        return $this->status = "Indéfini";
+        return $this;
     }
 
     /**
@@ -253,5 +250,10 @@ class Tournament
         $this->winner = $winner;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->tournamentName;
     }
 }

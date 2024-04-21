@@ -1,14 +1,3 @@
-## To do :
-
-Create a workflow to automate the actions at the very first pull "composer install" and opening .env
-
-Use fixture to add some data in database
-
-Api : registrations & games :
-  the serializing of the index GET method is making a circular reference BUG 
-
-
-
 # Gestionnaire de Tournois de Jeux Vidéo avec Symfony
 
 Ce projet a été réalisé dans le cadre d'un cours PHPD de SUPINFO sur la programmation web avec Symfony à l'école. 

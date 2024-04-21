@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Tournament;
+use App\Entity\Game;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
+use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +32,18 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tournament->setOrganizer($this->getUser());
+            if ($tournament->getEndDate() < $tournament->getStartDate()) {
+                $this->addFlash('error', 'The end date must be after the start date');
+                return $this->redirectToRoute('app_tournament_new');
+            } else if ($tournament->getStartDate() > new \DateTime('now')) {
+                $tournament->setStatus('En attente');
+            } else if ($tournament->getStartDate() < new \DateTime('now') && $tournament->getEndDate() > new \DateTime('now')) {
+                $tournament->setStatus('En cours');
+            } else if ($tournament->getEndDate() < new \DateTime('now')) {
+                $tournament->setStatus('Terminé');
+            }
+
             $entityManager->persist($tournament);
             $entityManager->flush();
 
@@ -43,16 +57,20 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tournament_show', methods: ['GET'])]
-    public function show(Tournament $tournament): Response
+    public function show(Tournament $tournament, GameRepository $gameRepository): Response
     {
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
+            'games' => $gameRepository->findBy(['tournament' => $tournament->getId()]),
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_tournament_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
+        if ($tournament->getOrganizer() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
 
