@@ -82,6 +82,6 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants sur v
 # Auteurs
   Ce projet a été réalisé par :
   
-  [Paul MARESCHI](https://github.com/Caalagan)
+  [Paul MARESCHI](https://github.com/Paul-Mrsch)
   [Aksel YOUNSI](https://github.com/aaKSell)
   [Kevin BUMBESCU](https://github.com/Reuss77)
