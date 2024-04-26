@@ -118,7 +118,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tournament_name\" : \"test_create_{{idTest}}\",\r\n    \"location\":\"test_create_{{idTest}}\",\r\n    \"description\":\"test_create_{{idTest}}\"\t,\r\n    \"max_participants\":\"{{idTest}}\"\t,\r\n    \"game\":\"test_create_{{idTest}}\",\r\n    \"status\":\"active\"\r\n}",
+							"raw": "{\r\n    \"tournament_name\" : \"test_create_{{idTest}}\",\r\n    \"location\":\"test_create_{{idTest}}\",\r\n    \"description\":\"test_create_{{idTest}}\"\t,\r\n    \"max_participants\":\"{{idTest}}\"\t,\r\n    \"game\":\"test_create_{{idTest}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tournament_name\" : \"test_create_edit_{{idTest}}\",\r\n    \"location\":\"test_create\",\r\n    \"description\":\"test_create\"\t,\r\n    \"max_participants\":\"4\"\t,\r\n    \"game\":\"test_create\",\r\n    \"status\":\"active\"\r\n}",
+							"raw": "{\r\n    \"tournament_name\" : \"test_create_edit_{{idTest}}\",\r\n    \"location\":\"test_create\",\r\n    \"description\":\"test_create\" \t,\r\n    \"max_participants\":\"4\"\t,\r\n    \"game\":\"test_create\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -714,7 +714,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/registrations",
+							"raw": "http://127.0.0.1:8000/api/tournaments/213/registrations",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -726,7 +726,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"213",
 								"registrations"
 							]
 						}
@@ -789,7 +789,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/registrations",
+							"raw": "http://127.0.0.1:8000/api/tournaments/213/registrations",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -801,7 +801,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"213",
 								"registrations"
 							]
 						}
@@ -852,7 +852,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/registrations/{{idTest}}",
+							"raw": "http://127.0.0.1:8000/api/tournaments/213/registrations/{{idTest}}",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -864,7 +864,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"213",
 								"registrations",
 								"{{idTest}}"
 							]
@@ -912,7 +912,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/games",
+							"raw": "http://127.0.0.1:8000/api/tournaments/212/games",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -924,7 +924,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"212",
 								"games"
 							]
 						}
@@ -991,7 +991,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/games",
+							"raw": "http://127.0.0.1:8000/api/tournaments/212/games",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1003,7 +1003,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"212",
 								"games"
 							]
 						}
@@ -1050,7 +1050,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/games/{{idTest}}",
+							"raw": "http://127.0.0.1:8000/api/tournaments/212/games/{{idTest}}",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1062,7 +1062,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"212",
 								"games",
 								"{{idTest}}"
 							]
@@ -1129,7 +1129,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/games/{{idTest}}",
+							"raw": "http://127.0.0.1:8000/api/tournaments/212/games/{{idTest}}",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1141,7 +1141,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"212",
 								"games",
 								"{{idTest}}"
 							]
@@ -1192,7 +1192,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/tournaments/2/games/{{idTest}}",
+							"raw": "http://127.0.0.1:8000/api/tournaments/212/games/{{idTest}}",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1204,7 +1204,7 @@
 							"path": [
 								"api",
 								"tournaments",
-								"2",
+								"212",
 								"games",
 								"{{idTest}}"
 							]
